@@ -25,6 +25,9 @@ jobs:
           npm ci
           npm run build
 
+      - name: Check folder structure
+        run: ls -R ./crud_server/crud_server/src/main/resources/
+        
       # React 빌드 결과물 → Spring Boot 정적 리소스에 복사
       - name: Copy React build to Spring Boot static folder
         run: |

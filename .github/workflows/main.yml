@@ -29,7 +29,7 @@ jobs:
       - name: Copy React build to Spring Boot static folder
         run: |
           rm -rf ./crud_server/crud_server/src/main/resources/static/*
-          cp -r ./simple_crud/build/* ./crud_server/crud_server/src/main/resources/static/
+          cp -r ./simple_crud/dist/* ./crud_server/crud_server/src/main/resources/static/
 
       # JDK 설치
       - name: Set up JDK

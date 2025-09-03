@@ -1,0 +1,79 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: ["main"]   # main 브랜치 push 시 실행
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      # Node.js 설치 (React 빌드용)
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      # React 빌드
+      - name: Install dependencies & Build React
+        working-directory: ./simple_crud
+        run: |
+          npm ci
+          npm run build
+
+      - name: Check folder structure
+        run: ls -R ./crud_server/crud_server/src/main/resources/
+        
+      # React 빌드 결과물 → Spring Boot 정적 리소스에 복사
+      - name: Copy React build to Spring Boot static folder
+        run: |
+          rm -rf ./crud_server/crud_server/src/main/resources/static/*
+          cp -r ./simple_crud/dist/* ./crud_server/crud_server/src/main/resources/static/
+
+      # JDK 설치
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: "17"
+          distribution: "temurin"
+
+      # Gradle 캐싱
+      - name: Cache Gradle
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      # Spring Boot 빌드
+      - name: Build Spring Boot
+        working-directory: ./crud_server/crud_server
+        run: ./gradlew clean build -x test
+
+      # EC2 서버에 배포
+      - name: Deploy to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "crud_server/crud_server/build/libs/*.jar"
+          target: "/home/ubuntu"
+
+      # EC2에서 실행 (Spring Boot 재시작)
+      - name: Restart Spring Boot on EC2
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            pkill -f 'java -jar' || true
+            nohup java -jar /home/ubuntu/*.jar > /home/ubuntu/app.log 2>&1 &

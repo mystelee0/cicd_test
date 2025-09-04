@@ -87,7 +87,7 @@ function LoginPage({setUser}) {
     e.preventDefault();
     setError('');
     setSuccessMessage('');
-
+    console.log("서버주소",serverIp);
     try {
       const response = await axios.post(`http://${serverIp}/auth/login`, form, {
         headers: {

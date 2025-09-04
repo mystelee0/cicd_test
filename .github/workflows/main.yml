@@ -68,7 +68,8 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           source: "crud_server/crud_server/build/libs/*.jar"
           target: "/home/ubuntu/"
-
+          strip_components: 4
+          
       # EC2에서 실행 (Spring Boot 재시작)
       - name: Restart Spring Boot on EC2
         uses: appleboy/ssh-action@v0.1.7

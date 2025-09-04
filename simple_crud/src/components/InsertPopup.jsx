@@ -157,7 +157,7 @@ function InsertPopup({user, closeModal, view, setView, form, setForm, posts, set
 
                     <Label>
                         작성자
-                        <Input name="nickname" value={user.nickname} onChange={handleChange} readOnly/>
+                        <Input name="nickname" value={form.nickname} onChange={handleChange} readOnly/>
                     </Label>
 
                     <Label>

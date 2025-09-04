@@ -74,6 +74,8 @@ function LoginPage({setUser}) {
   const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
 
+  const serverIp = import.meta.env.VITE_SERVER_IP;
+
   const handleChange = (e) => {
     setForm({
       ...form,
@@ -87,7 +89,7 @@ function LoginPage({setUser}) {
     setSuccessMessage('');
 
     try {
-      const response = await axios.post('http://localhost:8080/auth/login', form, {
+      const response = await axios.post(`http://${serverIp}/auth/login`, form, {
         headers: {
           'Content-Type': 'application/json',
         },

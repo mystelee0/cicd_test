@@ -18,6 +18,11 @@ jobs:
         with:
           node-version: "18"
 
+      # .env 파일 생성
+      - name: Create .env
+        run: |
+          echo "VITE_SERVER_IP=${{ secrets.EC2_HOST }}:8080" > ./simple_crud/.env
+
       # React 빌드
       - name: Install dependencies & Build React
         working-directory: ./simple_crud

@@ -129,7 +129,7 @@ function LoginPage({setUser}) {
           required
         />
 
-        <Button type="submit">로그인</Button>
+        <Button type="submit">로그인123</Button>
         <Button type="button" onClick={()=>navigate("/auth/signup")}>회원가입</Button>
       </Form>
 

@@ -15,11 +15,13 @@ function Main({user, setUser}) {
     const [form, setForm] = useState(blankForm);
     const navigate = useNavigate();
 
+    const serverIp = import.meta.env.VITE_SERVER_IP;
+
     const handlePostClick = (e, postId) => {
         
         setView(true);
         setIsModalOpen(true);
-        axios.get(`http://localhost:8080/posts/${postId}`)
+        axios.get(`http://${serverIp}/posts/${postId}`)
         .then((res)=>{
           console.log(res.data);
           setForm({
@@ -41,7 +43,7 @@ function Main({user, setUser}) {
         setIsModalOpen(false);
     }
     useEffect(()=>{
-      axios.get("http://localhost:8080/auth/me",{withCredentials:true})
+      axios.get(`http://${serverIp}/auth/me`,{withCredentials:true})
       .then((res)=>{
         setUser(res.data);
         alert(`환영합니다. ${res.data.nickname}님`)
@@ -52,7 +54,7 @@ function Main({user, setUser}) {
     },[])
 
     useEffect(()=>{
-axios.get("http://localhost:8080/posts")
+axios.get(`http://${serverIp}/posts`)
     .then((res)=>{
       console.log(res.data);
       setPosts(res.data);

@@ -16,6 +16,8 @@ function InsertPopup({user, closeModal, view, setView, form, setForm, posts, set
     const quillRef = useRef();
     const [update,setUpdate] = useState(false);
 
+    const serverIp = import.meta.env.VITE_SERVER_IP;
+
     // 입력 값 변경 처리
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -40,17 +42,17 @@ function InsertPopup({user, closeModal, view, setView, form, setForm, posts, set
         setForm(blankForm);
         console.log(newPost.date);
         if(update){
-            axios.put("http://localhost:8080/posts",JSON.stringify(newPost),{headers:{"Content-Type":"application/json"}})
+            axios.put(`http://${serverIp}/posts`,JSON.stringify(newPost),{headers:{"Content-Type":"application/json"}})
             .then((res)=>{
                 alert(res.data);
                 closeModal();
             })
             return;
         }
-        axios.post("http://localhost:8080/posts",JSON.stringify(newPost),{headers:{"Content-Type":"application/json"}})
+        axios.post(`http://${serverIp}/posts`,JSON.stringify(newPost),{headers:{"Content-Type":"application/json"}})
         .then((res)=>{
             if(res.status===200){
-                axios.get("http://localhost:8080/posts")
+                axios.get(`http://${serverIp}/posts`)
                 .then((res)=>{
                     setPosts(res.data);
                 })
@@ -178,7 +180,7 @@ function InsertPopup({user, closeModal, view, setView, form, setForm, posts, set
                 </Form>
                 {
                         form.id===user.id?<Button type="button" onClick={()=>{
-                            axios.delete(`http://localhost:8080/posts/${form.postid}`)
+                            axios.delete(`http://${serverIp}/posts/${form.postid}`)
                             .then((res)=>{
                                 alert(res.data);
                                 closeModal();

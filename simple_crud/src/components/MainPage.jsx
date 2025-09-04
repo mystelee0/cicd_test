@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 
 function MainPage({ user,setUser }) {
     const navigate = useNavigate();
+    const serverIp = import.meta.env.VITE_SERVER_IP;
     return (
         <Page>
             <Header>
@@ -12,7 +13,7 @@ function MainPage({ user,setUser }) {
                     <span>{`안녕하세요 ${user.nickname}님.`}</span>
                     <Title>📋 React CRUD 게시판</Title>
                     <button onClick={()=>{
-                        axios.get("http://localhost:8080/auth/signout",{withCredentials:true})
+                        axios.get(`http://${serverIp}/auth/signout`,{withCredentials:true})
                         .then((res)=>{
                             alert(res.data);
                             navigate("/auth/login");

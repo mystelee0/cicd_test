@@ -87,7 +87,7 @@ function LoginPage({setUser}) {
     e.preventDefault();
     setError('');
     setSuccessMessage('');
-    console.log("서버주소",serverIp);
+    
     try {
       const response = await axios.post(`http://${serverIp}/auth/login`, form, {
         headers: {
@@ -129,7 +129,7 @@ function LoginPage({setUser}) {
           required
         />
 
-        <Button type="submit">로그인123</Button>
+        <Button type="submit">로그인111</Button>
         <Button type="button" onClick={()=>navigate("/auth/signup")}>회원가입</Button>
       </Form>
 

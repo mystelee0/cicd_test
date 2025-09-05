@@ -87,7 +87,7 @@ axios.get(`http://${serverIp}/posts`)
                                 <tr key={post.postid}>
                                     <Td>{post.postid}</Td>
                                     <PostTitle onClick={e => handlePostClick(e, post.postid)}>{post.title}</PostTitle>
-                                    <Td>{post.id}</Td>
+                                    <Td>{post.nickname}</Td>
                                     <Td>{post.date.replace("T"," ")}</Td>
                                 </tr>
                             ))

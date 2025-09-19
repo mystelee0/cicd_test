@@ -90,7 +90,7 @@ function SignUpPage() {
     setSuccessMessage('');
 
     try {
-      const response = await axios.post(`http://${serverIp}/auth/signup`, form, {
+      const response = await axios.post(`https://${serverIp}/auth/signup`, form, {
         headers: {
           'Content-Type': 'application/json',
         },

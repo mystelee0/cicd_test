@@ -13,7 +13,7 @@ function MainPage({ user,setUser }) {
                     <span>{`안녕하세요 ${user.nickname}님.`}</span>
                     <Title>📋 React CRUD 게시판 v09050918</Title>
                     <button onClick={()=>{
-                        axios.get(`http://${serverIp}/auth/signout`,{withCredentials:true})
+                        axios.get(`https://${serverIp}/auth/signout`,{withCredentials:true})
                         .then((res)=>{
                             alert(res.data);
                             navigate("/auth/login");

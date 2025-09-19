@@ -89,7 +89,7 @@ function LoginPage({setUser}) {
     setSuccessMessage('');
     
     try {
-      const response = await axios.post(`http://${serverIp}/auth/login`, form, {
+      const response = await axios.post(`https://${serverIp}/auth/login`, form, {
         headers: {
           'Content-Type': 'application/json',
         },

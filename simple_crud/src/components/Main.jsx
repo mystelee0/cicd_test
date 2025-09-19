@@ -21,7 +21,7 @@ function Main({user, setUser}) {
         
         setView(true);
         setIsModalOpen(true);
-        axios.get(`http://${serverIp}/posts/${postId}`)
+        axios.get(`https://${serverIp}/posts/${postId}`)
         .then((res)=>{
           console.log(res.data);
           setForm({
@@ -43,7 +43,7 @@ function Main({user, setUser}) {
         setIsModalOpen(false);
     }
     useEffect(()=>{
-      axios.get(`http://${serverIp}/auth/me`,{withCredentials:true})
+      axios.get(`https://${serverIp}/auth/me`,{withCredentials:true})
       .then((res)=>{
         setUser(res.data);
         alert(`환영합니다. ${res.data.nickname}님`)
@@ -54,7 +54,7 @@ function Main({user, setUser}) {
     },[])
 
     useEffect(()=>{
-axios.get(`http://${serverIp}/posts`)
+axios.get(`https://${serverIp}/posts`)
     .then((res)=>{
       console.log(res.data);
       setPosts(res.data);

@@ -42,17 +42,17 @@ function InsertPopup({user, closeModal, view, setView, form, setForm, posts, set
         setForm(blankForm);
         console.log(newPost.date);
         if(update){
-            axios.put(`http://${serverIp}/posts`,JSON.stringify(newPost),{headers:{"Content-Type":"application/json"}})
+            axios.put(`https://${serverIp}/posts`,JSON.stringify(newPost),{headers:{"Content-Type":"application/json"}})
             .then((res)=>{
                 alert(res.data);
                 closeModal();
             })
             return;
         }
-        axios.post(`http://${serverIp}/posts`,JSON.stringify(newPost),{headers:{"Content-Type":"application/json"}})
+        axios.post(`https://${serverIp}/posts`,JSON.stringify(newPost),{headers:{"Content-Type":"application/json"}})
         .then((res)=>{
             if(res.status===200){
-                axios.get(`http://${serverIp}/posts`)
+                axios.get(`https://${serverIp}/posts`)
                 .then((res)=>{
                     setPosts(res.data);
                 })
@@ -180,7 +180,7 @@ function InsertPopup({user, closeModal, view, setView, form, setForm, posts, set
                 </Form>
                 {
                         form.id===user.id?<Button type="button" onClick={()=>{
-                            axios.delete(`http://${serverIp}/posts/${form.postid}`)
+                            axios.delete(`https://${serverIp}/posts/${form.postid}`)
                             .then((res)=>{
                                 alert(res.data);
                                 closeModal();

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 
 function MainPage({ user,setUser }) {
     const navigate = useNavigate();
-    const serverIp = import.meta.env.VITE_SERVER_IP;
+    const serverIp = import.meta.env.VITE_SERVER_NAME;
     return (
         <Page>
             <Header>

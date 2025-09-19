@@ -75,7 +75,7 @@ function SignUpPage() {
   const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
 
-  const serverIp = import.meta.env.VITE_SERVER_IP;
+  const serverIp = import.meta.env.VITE_SERVER_NAME;
 
   const handleChange = (e) => {
     setForm({

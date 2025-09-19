@@ -15,7 +15,7 @@ function Main({user, setUser}) {
     const [form, setForm] = useState(blankForm);
     const navigate = useNavigate();
 
-    const serverIp = import.meta.env.VITE_SERVER_IP;
+    const serverIp = import.meta.env.VITE_SERVER_NAME;
 
     const handlePostClick = (e, postId) => {
         

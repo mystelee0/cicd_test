@@ -21,8 +21,8 @@ jobs:
       # .env 파일 생성
       - name: Create .env
         run: |
-          echo "VITE_SERVER_IP=${{ secrets.EC2_HOST }}"
-          echo "VITE_SERVER_IP=${{ secrets.EC2_HOST }}" > ./simple_crud/.env
+          echo "VITE_SERVER_NAME=${{ secrets.EC2_HOSTNAME }}"
+          echo "VITE_SERVER_NAME=${{ secrets.EC2_HOSTNAME }}" > ./simple_crud/.env
 
       # React 빌드
       - name: Install dependencies & Build React

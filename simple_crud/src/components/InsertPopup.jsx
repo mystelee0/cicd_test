@@ -16,7 +16,7 @@ function InsertPopup({user, closeModal, view, setView, form, setForm, posts, set
     const quillRef = useRef();
     const [update,setUpdate] = useState(false);
 
-    const serverIp = import.meta.env.VITE_SERVER_IP;
+    const serverIp = import.meta.env.VITE_SERVER_NAME;
 
     // 입력 값 변경 처리
     const handleChange = (e) => {

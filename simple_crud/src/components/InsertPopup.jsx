@@ -168,7 +168,11 @@ function InsertPopup({user, closeModal, view, setView, form, setForm, posts, set
                         theme="snow"
                         modules={modules}
                         value={form.content}
-                        onChange={(content) => setForm((f) => ({ ...f, ["content"]: content }))}
+                        onChange={(content) => {
+                            // 저장할 때 일반 공백 → &nbsp; 변환
+                            const withSpaces = content.replace(/ /g, '&nbsp;');
+                            setForm((f) => ({ ...f, content: withSpaces }));
+                        }}
                         formats={formats}
                         placeholder="내용을 입력하세요..."
                         readOnly={view}

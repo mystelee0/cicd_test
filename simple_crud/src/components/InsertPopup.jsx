@@ -167,7 +167,7 @@ function InsertPopup({user, closeModal, view, setView, form, setForm, posts, set
                         ref={quillRef}
                         theme="snow"
                         modules={modules}
-                        value={form.content}
+                        value={form.content?JSON.parse(form.content):""}
                         onChange={(_, _delta, _source, editor) => {
                             const delta = editor.getContents();
                             setForm((f) => ({ ...f, content: JSON.stringify(delta) }));

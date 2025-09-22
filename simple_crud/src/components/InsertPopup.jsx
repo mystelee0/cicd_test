@@ -167,12 +167,14 @@ function InsertPopup({user, closeModal, view, setView, form, setForm, posts, set
                         ref={quillRef}
                         theme="snow"
                         modules={modules}
-                        value={form.content}
-                        onChange={(content) => setForm((f) => ({ ...f, ["content"]: content }))}
+                        value={JSON.parse(form.content)}
+                        onChange={(_, _delta, _source, editor) => {
+                            const delta = editor.getContents();
+                            setForm((f) => ({ ...f, content: JSON.stringify(delta) }));
+                        }}
                         formats={formats}
                         placeholder="내용을 입력하세요..."
                         readOnly={view}
-                        preserveWhitespace
                     />
 
 

@@ -168,7 +168,11 @@ function InsertPopup({user, closeModal, view, setView, form, setForm, posts, set
                         theme="snow"
                         modules={modules}
                         value={form.content}
-                        onChange={(content) => setForm((f) => ({ ...f, ["content"]: content }))}
+                        
+                        onChange={(_, _delta, _source, editor) => {
+                            const delta = editor.getContents();
+                            setForm((f) => ({ ...f, content: JSON.stringify(delta) }));
+                        }}
                         formats={formats}
                         placeholder="내용을 입력하세요..."
                         readOnly={view}
@@ -285,9 +289,6 @@ const StyledQuill = styled(ReactQuill)`
   min-height:200px;
   width:100%;
   height:300px;
-}
-.ql-editor * {
-    white-space:pre-wrap;
 }
 `;
 

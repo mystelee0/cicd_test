@@ -285,6 +285,7 @@ const StyledQuill = styled(ReactQuill)`
   min-height:200px;
   width:100%;
   height:300px;
+  white-space:pre-wrap;
 }
 `;
 

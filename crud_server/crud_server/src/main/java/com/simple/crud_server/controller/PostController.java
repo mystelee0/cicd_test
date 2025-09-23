@@ -69,4 +69,5 @@ public class PostController {
         if(bool) return ResponseEntity.ok("수정 완료");
         else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("업데이트 실패");
     }
+
 }

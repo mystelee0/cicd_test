@@ -3,9 +3,11 @@ package com.simple.crud_server.controller;
 import com.simple.crud_server.entity.User;
 import com.simple.crud_server.entity.UserDto;
 import com.simple.crud_server.service.AuthServiceImpl;
+import com.simple.crud_server.service.S3Service;
 import com.simple.crud_server.service.UserServiceImpl;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
 
+    @Autowired
     private final AuthServiceImpl authService;
+    @Autowired
+    private final S3Service s3Service;
 
     // 로그인
     @PostMapping("/auth/login")
@@ -50,6 +55,7 @@ public class AuthController {
     @GetMapping("/auth/signout")
     ResponseEntity signout(HttpSession session){
 
+        s3Service.uploadFile();
         if(session.getAttribute("loginUser")!=null){
             session.removeAttribute("loginUser");
             return ResponseEntity.ok("로그아웃 성공");

@@ -6,6 +6,9 @@ import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
+import java.io.IOException;
+import java.util.UUID;
+
 @Service
 public class S3Service {
     private S3Client s3Client;
@@ -14,11 +17,21 @@ public class S3Service {
         this.s3Client = s3Client;
     }
 
-    public void uploadFile(){
+    public void uploadFile(MultipartFile file) throws IOException {
 
-        s3Client.putObject(PutObjectRequest.builder().bucket("dsic").key("test_image")
+        UUID uuid = UUID.randomUUID();
+        s3Client.putObject(PutObjectRequest.builder().bucket("dsic").key(uuid.toString())
                 .build(),
-                RequestBody.fromString("sdk-java 테스트 dsic"));
+                RequestBody.fromBytes(file.getBytes()));
+        System.out.println("파일 업로드 성공");
+
+    }
+    public void uploadText(String str) throws IOException {
+
+        UUID uuid = UUID.randomUUID();
+        s3Client.putObject(PutObjectRequest.builder().bucket("dsic").key(uuid.toString())
+                        .build(),
+                RequestBody.fromString(str));
         System.out.println("파일 업로드 성공");
 
     }

@@ -3,6 +3,7 @@ package com.simple.crud_server.controller;
 import com.simple.crud_server.entity.Post;
 import com.simple.crud_server.entity.PostSummaryDto;
 import com.simple.crud_server.service.PostServiceImpl;
+import com.simple.crud_server.service.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,8 @@ public class PostController {
 
     @Autowired
     private PostServiceImpl postService;
+    @Autowired
+    private S3Service s3Service;
 
     // get posts
     @GetMapping("/posts")
@@ -39,6 +42,17 @@ public class PostController {
         System.out.println("포스트 저장 컨트롤러");
         System.out.println(post.getContent());
         System.out.println(post.getDate());
+
+        //이미지처리
+        try{
+            //임시
+            s3Service.uploadText("s3 파일 업로드 테스트\n"+post.getContent());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
+        //저장
         Post savedPost = postService.savePost(post);
         if(savedPost==null){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("포스트 저장 실패");

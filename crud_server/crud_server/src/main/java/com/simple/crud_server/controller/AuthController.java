@@ -21,8 +21,6 @@ public class AuthController {
 
     @Autowired
     private final AuthServiceImpl authService;
-    @Autowired
-    private final S3Service s3Service;
 
     // 로그인
     @PostMapping("/auth/login")
@@ -55,7 +53,6 @@ public class AuthController {
     @GetMapping("/auth/signout")
     ResponseEntity signout(HttpSession session){
 
-        s3Service.uploadFile();
         if(session.getAttribute("loginUser")!=null){
             session.removeAttribute("loginUser");
             return ResponseEntity.ok("로그아웃 성공");
